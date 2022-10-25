@@ -1,0 +1,26 @@
+.header {
+  &-img {
+    width: 10rem;
+    img {
+      width: 100%;
+    }
+  }
+  .navbar {
+    @include skewTransform;
+    &-ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      gap: 2rem;
+      &__item {
+        font-size: 1.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+    }
+    .navbar-title {
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  }
+}

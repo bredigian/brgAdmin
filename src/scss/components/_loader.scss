@@ -1,0 +1,9 @@
+.loader {
+  animation: showContainer 1s ease-in-out;
+  margin-top: 300px;
+  p {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $colorSecundary;
+  }
+}

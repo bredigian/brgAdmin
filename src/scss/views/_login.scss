@@ -1,0 +1,52 @@
+.login {
+  animation: showContainer 1s ease-in-out;
+  &-title {
+    color: $colorSecundary;
+    font-size: 4rem;
+    font-weight: 700;
+  }
+  &-form {
+    width: 400px;
+    background-color: $colorSecundary;
+    @include skewTransform;
+    &__input {
+      width: 100%;
+      label {
+        font-size: 2.5rem;
+        color: $colorPrimary;
+        font-weight: 700;
+      }
+      input {
+        width: 100%;
+        font-size: 2.25rem;
+        color: $colorPrimary;
+        font-weight: 700;
+        background-color: transparent;
+        border: none;
+        border-bottom: solid $colorPrimary 0.2rem;
+        outline-style: hidden;
+        outline: none;
+      }
+    }
+    .submitContainer {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      .submit {
+        font-size: 3rem;
+        background-color: transparent;
+        border: solid $colorPrimary 0.2rem;
+        padding: 1.5rem;
+        color: $colorPrimary;
+        transition: all 0.2s;
+        &:hover {
+          background-color: $colorPrimary;
+          color: $colorSecundary;
+        }
+      }
+    }
+  }
+}
