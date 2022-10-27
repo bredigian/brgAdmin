@@ -1,13 +1,27 @@
-import React, { useContext, useState } from "react"
-import { AuthContext } from "../context/AuthContext"
-import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+
+import React, { useContext, useEffect, useState } from "react"
+import {
+  collection,
+  getDoc,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore"
+
+import { AuthContext } from "../context/AuthContext"
 import Loading from "./Loading"
 import SubmitLoader from "./SubmitLoader"
+import { toast } from "react-toastify"
+import { useNavigate } from "react-router-dom"
+
 function Login() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
   const [logging, setLogging] = useState(false)
+  const [admin, setAdmin] = useState(null)
   const navigate = useNavigate()
   const { signIn } = useContext(AuthContext)
   const handleSubmit = async (e) => {
@@ -17,8 +31,8 @@ function Login() {
       email: e.target.email.value,
       password: e.target.password.value,
     }
-    try {
-      await signIn(user.email, user.password)
+    if (admin != null) {
+      signIn(user.email, user.password)
       toast.success("Logged successfully", {
         position: "top-right",
         autoClose: 2500,
@@ -32,7 +46,7 @@ function Login() {
       setTimeout(() => {
         navigate("/home")
       }, 2500)
-    } catch (e) {
+    } else {
       console.log(e.message)
       setTimeout(() => {
         toast.error("Email/Password incorrect", {
@@ -49,6 +63,20 @@ function Login() {
       }, 1500)
     }
   }
+  useEffect(() => {
+    const db = getFirestore()
+    const queryAdmin = query(
+      collection(db, "users"),
+      where("rol", "==", "admin")
+    )
+    getDocs(queryAdmin).then((snapshot) => {
+      snapshot.docs.map((doc) => {
+        if (doc.data().email == email && doc.data().password == password) {
+          setAdmin(doc.data())
+        }
+      })
+    })
+  }, [email, password])
   setTimeout(() => {
     setLoading(true)
   }, 2500)
@@ -62,11 +90,19 @@ function Login() {
         >
           <div className="login-form__input d-flex flex-column align-items-start gap-2">
             <label htmlFor="">Email</label>
-            <input type="email" id="email" />
+            <input
+              type="email"
+              id="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
           <div className="login-form__input d-flex flex-column align-items-start gap-2">
             <label htmlFor="">Password</label>
-            <input type="password" id="password" />
+            <input
+              type="password"
+              id="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </div>
           <div className="submitContainer">
             {!logging ? (
