@@ -1,12 +1,21 @@
+import React, { createContext, useEffect, useState } from "react"
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  query,
+  where,
+} from "firebase/firestore"
 import {
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
 } from "firebase/auth"
-import React, { createContext, useEffect, useState } from "react"
+
 export const AuthContext = createContext()
 function AuthProvider({ children }) {
+  const [adminData, setAdminData] = useState({})
   const [userCurrent, setUserCurrent] = useState({})
   const auth = getAuth()
   const signIn = (email, password) => {
@@ -22,8 +31,22 @@ function AuthProvider({ children }) {
     })
     return () => unsuscribe()
   }, [])
+  useEffect(() => {
+    const db = getFirestore()
+    const adminCollection = collection(db, "users")
+    if (userCurrent) {
+      const queryAdmin = query(adminCollection, where("rol", "==", "admin"))
+      getDocs(queryAdmin).then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          if (doc.data().email == userCurrent.email) {
+            setAdminData({ ...doc.data() })
+          }
+        })
+      })
+    }
+  }, [userCurrent])
   return (
-    <AuthContext.Provider value={{ signIn, logOut, userCurrent }}>
+    <AuthContext.Provider value={{ signIn, logOut, userCurrent, adminData }}>
       {children}
     </AuthContext.Provider>
   )

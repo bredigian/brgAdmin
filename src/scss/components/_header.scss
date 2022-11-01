@@ -1,4 +1,5 @@
 .header {
+  animation: showContainer 1s ease-in-out;
   &-img {
     width: 10rem;
     img {
@@ -16,11 +17,33 @@
         font-size: 1.75rem;
         font-weight: 700;
         text-transform: uppercase;
+        ul {
+          position: absolute;
+          list-style-type: none;
+          padding: 0.5rem;
+          margin: 0;
+          display: none !important;
+          background-color: black;
+          li {
+            border: none;
+            color: $colorPrimary;
+            .link {
+              color: $colorPrimary;
+              width: 100%;
+              font-size: 1.5rem;
+            }
+          }
+        }
+        &:hover > ul {
+          display: flex !important;
+        }
       }
     }
     .navbar-title {
+      color: $colorSecundary;
       font-size: 2rem;
       font-weight: 700;
+      text-transform: uppercase;
     }
   }
 }
