@@ -24,10 +24,12 @@
           margin: 0;
           display: none !important;
           background-color: black;
-          li {
+          .link {
             border: none;
             color: $colorPrimary;
-            .link {
+            min-width: 6.5rem !important;
+            width: 100%;
+            li {
               color: $colorPrimary;
               width: 100%;
               font-size: 1.5rem;

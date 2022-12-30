@@ -1,13 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./scss/app.scss"
+import "firebase/auth"
+
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+
+import AuthProvider from "./context/AuthContext"
 import Header from "./components/Header"
 import Home from "./components/Home"
-import "firebase/auth"
-import AuthProvider from "./context/AuthContext"
-import ProtectedRoute from "./components/ProtectedRoute"
-import Login from "./components/Login"
 import Loading from "./components/Loading"
+import Login from "./components/Login"
+import Manage from "./components/Manage"
+import ProtectedRoute from "./components/ProtectedRoute"
 import { ToastContainer } from "react-toastify"
 import { useState } from "react"
 const App = () => {
@@ -36,7 +39,7 @@ const App = () => {
               path="/manage"
               element={
                 <ProtectedRoute>
-                  <></>
+                  <Manage />
                 </ProtectedRoute>
               }
             />

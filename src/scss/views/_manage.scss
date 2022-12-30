@@ -1,0 +1,94 @@
+.manage {
+  margin: auto;
+  @include skewTransform;
+  &-container {
+    &__title {
+      font-size: 4rem;
+      font-weight: 700;
+      color: $colorSecundary;
+    }
+    .buttonAdd {
+      background-color: transparent;
+      border: none;
+      color: $colorSecundary;
+      font-size: 6rem;
+      width: 70px;
+      height: 70px;
+      display: grid;
+      place-items: center;
+      &:hover {
+        background-color: $colorSecundary;
+        color: $colorPrimary;
+      }
+    }
+    &__newElement {
+      opacity: 0;
+      visibility: hidden;
+      background-color: $colorSecundary;
+      position: absolute;
+      z-index: 3 !important;
+    }
+  }
+  .showAddItem {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .backBlur {
+    opacity: 0.25;
+    z-index: -1 !important;
+  }
+  &-products {
+    &__item {
+      background-color: $colorSecundary;
+      padding: 2rem;
+      height: 500px;
+      &-img {
+        flex-grow: 1;
+        width: 15rem;
+        img {
+          width: 100%;
+        }
+      }
+      &-name {
+        font-size: 2rem;
+        font-weight: 700;
+        color: $colorPrimary;
+        width: 250px;
+        text-align: center;
+      }
+      &-price {
+        font-size: 2.25rem;
+        font-weight: 700;
+        color: $colorPrimary;
+      }
+      &-stock {
+        font-size: 1.75rem;
+        color: $colorPrimary;
+      }
+      &-options {
+        .buttonOptions {
+          width: 50px;
+          height: 50px;
+          display: grid;
+          place-items: center;
+          background-color: transparent;
+          border: none;
+          color: $colorPrimary;
+          font-size: 2rem;
+          transition: all 0.2s;
+          &:first-child {
+            &:hover {
+              background-color: $colorPrimary;
+              color: $colorSecundary;
+            }
+          }
+          &:last-child {
+            &:hover {
+              background-color: red;
+            }
+          }
+        }
+      }
+    }
+  }
+}

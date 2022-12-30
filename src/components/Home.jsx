@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react"
-import { getFirestore, collection, getDocs } from "firebase/firestore"
-import Order from "./Order"
+import { collection, getDocs, getFirestore } from "firebase/firestore"
+
 import AwaitingOrders from "./AwaitingOrders"
+import Order from "./Order"
+
 export default function Home() {
   const [orders, setOrders] = useState([])
   useEffect(() => {
-    setInterval(() => {
-      const db = getFirestore()
-      const orders = collection(db, "orders")
-      getDocs(orders).then((snapshot) => {
-        setOrders(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
-      })
-    }, 5000)
+    const db = getFirestore()
+    const orders = collection(db, "orders")
+    getDocs(orders).then((snapshot) => {
+      setOrders(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })))
+    })
+    console.log("useEffect Home")
   }, [])
   return (
     <>

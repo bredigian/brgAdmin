@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css"
 import React, { useContext, useEffect, useState } from "react"
 import {
   collection,
-  getDoc,
   getDocs,
   getFirestore,
   query,
@@ -76,13 +75,14 @@ function Login() {
         }
       })
     })
-  }, [email, password])
+    console.log("useEffect Login")
+  }, [admin])
   setTimeout(() => {
     setLoading(true)
   }, 2500)
   if (loading) {
     return (
-      <div className="login d-flex flex-column align-items-center w-100 gap-4">
+      <div className="login d-flex flex-column align-items-center w-75 gap-4">
         <p className="login-title m-0">Log In</p>
         <form
           className="login-form d-flex flex-column align-items-center gap-3 p-5"
